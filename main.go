@@ -35,6 +35,7 @@ func (q *Queue) sneak(floor int) {
 }
 
 func main() {
+func main() {
 
 	numFloors := 4
 
