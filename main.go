@@ -33,40 +33,7 @@ func (q *Queue) Peek() int {
 func (q *Queue) sneak(floor int) {
 	q.orders = append([]int{floor}, q.orders...)
 }
-	"Driver-go/elevio"
-	"fmt"
-	"time"
-)
 
-type Queue struct {
-	orders []int
-}
-
-func (q *Queue) Enqueue(floor int) {
-	q.orders = append(q.orders, floor)
-}
-
-func (q *Queue) Dequeue() int {
-	if len(q.orders) == 0 {
-		return -1
-	}
-	floor := q.orders[0]
-	q.orders = q.orders[1:]
-	return floor
-}
-
-func (q *Queue) Peek() int {
-	if len(q.orders) == 0 {
-		return -1
-	}
-	return q.orders[0]
-}
-
-func (q *Queue) sneak(floor int) {
-	q.orders = append([]int{floor}, q.orders...)
-}
-
-func main() {
 func main() {
 
 	numFloors := 4
@@ -81,10 +48,12 @@ func main() {
 	drv_obstr := make(chan bool)
 	drv_stop := make(chan bool)
 
-    go elevio.PollButtons(drv_buttons)
-    go elevio.PollFloorSensor(drv_floors)
-    go elevio.PollObstructionSwitch(drv_obstr)
-    go elevio.PollStopButton(drv_stop)
+	go elevio.PollButtons(drv_buttons)
+	go elevio.PollFloorSensor(drv_floors)
+	go elevio.PollObstructionSwitch(drv_obstr)
+	go elevio.PollStopButton(drv_stop)
+	
+	queue := Queue{}
 
 	for {
 		select {
